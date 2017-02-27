@@ -1,0 +1,106 @@
+# Specify version format
+version: 1.2.0.{build}
+
+# branches to build
+#branches:
+  # whitelist
+#  only:
+#  - VisualStudio
+  # blacklist
+  #except:
+
+# Do not build on tags (GitHub only)
+#skip_tags: true
+
+pull_requests:
+  do_not_increment_build_number: true
+
+os:
+- Visual Studio 2015
+
+# build platform, i.e. Win32 (instead of x86), x64, Any CPU. This setting is optional.
+platform:
+  - Win32
+  - x64
+
+ # build configuration, i.e. Debug, Release, etc.
+configuration:
+#  - Debug
+  - Release
+
+# scripts that run after cloning repository
+install:
+  - cmd: cinst cmake -version 3.2.1 -y
+  - cmd: cmake --version
+  - cmd: cinst nsis --version 2.46.0.20150406
+  - cmd: gem install bundler --no-document
+
+# scripts to run before build
+before_build:
+  - cmd: md build
+  - cmd: cd build
+  - cmd: if "%platform%"=="Win32" set CMAKE_GENERATOR_NAME=Visual Studio 14 2015
+  - cmd: if "%platform%"=="x64" set CMAKE_GENERATOR_NAME=Visual Studio 14 2015 Win64
+  - cmd: cmake -G "%CMAKE_GENERATOR_NAME%" -DCMAKE_BUILD_TYPE=%configuration% ..
+  - cmd: cd ..
+# build first the external dependencies
+  - cmd: cmake --build build --target externals/external_dependencies --config %configuration%
+
+# scripts to run after build
+after_build:
+#  - cmd: if "%configuration%"=="Release" cmake --build build --target doc --config %configuration%
+  - cmd: if "%configuration%"=="Release" cmake --build build --target package --config %configuration%
+# to run your custom scripts instead of automatic MSBuild
+build_script:
+
+# to disable automatic builds
+#build: off
+
+build:
+  project: build\Cpp_project_template.sln # path to Visual Studio solution or project
+  parallel: true                           # enable MSBuild parallel builds
+  verbosity: minimal                       # MSBuild verbosity level (quiet|minimal|normal|detailed)
+
+
+test_script:
+  ps: |
+        cmake --build build --target tests/unit/run_unittests_xunit --config $($env:CONFIGURATION)
+        $wc = New-Object 'System.Net.WebClient'
+        $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\reports\tests\unittests.xml))
+#        cmake --build build --target tests/igloo/run_iglootests_xunit --config $($env:CONFIGURATION)
+#        $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\reports\tests\igloo-tests.xml))
+#        cmake --build build --target tests/catch/run_catchtests_junit --config $($env:CONFIGURATION)
+#        $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\reports\tests\catch-tests.xml))
+
+deploy_script:
+
+notifications:
+- provider: Email
+  to:
+    - estermann.michel@gmail.com
+  subject: Cpp_project_template AppVeyor Build
+  on_build_success: false
+  on_build_failure: true
+  on_build_status_changed: true
+
+#---------------------------------#
+#      artifacts configuration    #
+#---------------------------------#
+
+artifacts:
+
+  # pushing a single file
+  - path: install\*.exe
+
+deploy:
+#  release: Cpp_project_template-v$(appveyor_build_version)
+  description: 'Release description'
+  provider: GitHub
+  auth_token:
+    secure: 92cc4dd902c7609d99f57504c5b1c375d68c8ef0 # your encrypted token from GitHub
+  artifact: /.*\.exe/            # upload installer
+  draft: false
+  prerelease: false
+  on:
+    branch: master                 # release from master branch only
+    appveyor_repo_tag: true        # deploy on tag push only

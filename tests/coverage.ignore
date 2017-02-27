@@ -1,0 +1,6 @@
+externals/include
+tests/unit
+tests/igloo
+tests/catch
+tests/spec
+tests/feature
