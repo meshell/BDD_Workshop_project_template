@@ -234,27 +234,6 @@ target_link_libraries(${PROJECT_NAME}
     internal::projectlib
 )
 
-#Install targets
-
-
-install(TARGETS ${PROJECT_NAME}
-    RUNTIME DESTINATION bin
-    COMPONENT main
-)
-
-#Install targets
-install(TARGETS projectlib
-    RUNTIME DESTINATION bin
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib/static
-    COMPONENT library
-)
-
-install(FILES ${PROJECTLIB_HEADER_FILES}
-    DESTINATION include/${PROJECT_NAME}
-    COMPONENT headers
-)
-
 #
 # Build library with coverage support
 #
