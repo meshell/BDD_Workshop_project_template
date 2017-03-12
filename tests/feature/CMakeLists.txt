@@ -234,7 +234,7 @@ if(STEP_SOURCES)
     # Target: run wip features
     # Run cucumber with --wip argument and run only features tagged @wip
     add_custom_target(run_wip_features
-        ${CUCUMBER_RUBY} -P --tags @wip:3 --wip --tags ~@proposal --no-color -f pretty -s features
+        ${CUCUMBER_RUBY} -P --tags @wip --wip --tags ~@proposal --no-color -f pretty -s features
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         COMMENT "Running cucumber (wip features)."
         )
