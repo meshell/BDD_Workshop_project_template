@@ -15,7 +15,7 @@ Scenario: String Input
     'I never saw one, or heard of one,' said Alice.
     'Come on, then,' said the Queen, 'and he shall tell you his history,' 
     """
-  When the word Mock are counted in the text
+  When the word mock are counted in the text
   Then the count should be 3
   
   
