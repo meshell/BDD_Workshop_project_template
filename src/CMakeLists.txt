@@ -3,12 +3,13 @@ cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 
 # TODO add your source files here
 set(PROJECTLIB_SOURCE_FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/dummy.cpp
-)
+    ${CMAKE_CURRENT_SOURCE_DIR}/rpn_calculator.cpp
+    )
 
 # TODO add your header files here
 set(PROJECTLIB_HEADER_FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/../include/dummy.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/../include/rpn_calculator.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/../include/word_counter.h
     )
 
 source_group("Header Files" FILES ${PROJECTLIB_HEADER_FILES})

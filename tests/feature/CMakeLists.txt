@@ -78,8 +78,8 @@ endfunction()
 
 # TODO add all your step definition files here (source file without extension)
 if(CUKE_FOUND)
-  register_feature_steps(features/step_definitions/dummy_steps)
-  register_feature_steps(features/step_definitions/mock_steps)
+  register_feature_steps(features/step_definitions/calculator_steps)
+  register_feature_steps(features/step_definitions/word_count_steps)
 endif(CUKE_FOUND)
 
 if(STEP_SOURCES)

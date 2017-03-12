@@ -92,8 +92,8 @@ function(register_test TEST_FILE)
 endfunction()
 
 # TODO add here all your tests (source file name without extension)
-register_test(src/dummy_test)
-register_test(src/gmock_test)
+register_test(src/calculator_test)
+
 
 ######################################
 # Create a single test executable.   #

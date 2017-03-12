@@ -4,9 +4,8 @@ Feature: Cucumber-cpp Text Input Example Exercise
   I want to implement cucumber steps with Text input
   In order to learn how to define cucumber steps in C++
 
-@wip
-Scenario: String Input
-  Given the following text
+  Scenario: String Input
+    Given the following text
     """
     Then the Queen left off, quite out of breath, and said to Alice, 
     'Have you seen the Mock Turtle yet?'
@@ -15,7 +14,7 @@ Scenario: String Input
     'I never saw one, or heard of one,' said Alice.
     'Come on, then,' said the Queen, 'and he shall tell you his history,' 
     """
-  When the word Mock are counted in the text
-  Then the count should be 3
+    When the word mock are counted in the text
+    Then the count should be 3
   
   

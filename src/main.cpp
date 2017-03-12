@@ -1,14 +1,12 @@
 #include <iostream>
 #include <boost/program_options.hpp>
 #include "project_version.h"
-#include "dummy.h"
 
-using CppTemplate::Dummy;
 using boost::program_options::options_description;
 using boost::program_options::parse_command_line;
 
 
-int main(int argc, char** argv)
+int main (int argc, char ** argv)
 {
     options_description option_description{"Allowed options"};
     option_description.add_options()
@@ -39,8 +37,5 @@ int main(int argc, char** argv)
     }
 
 
-  Dummy english_dummy{"Hello", "World"};
-  
-  std::cout << "A english dummy says: " << english_dummy.say_hello() << std::endl;
-  return 0;
+    return 0;
 }
