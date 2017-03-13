@@ -10,7 +10,7 @@ Scenario: Simple Steps
   When this numbers are multiplied
   Then the result should be 42
 
-@wip
+@proposal
 Scenario Outline: Examples
   Given the numbers <number 1> and <number 2>
   When this numbers are added
@@ -25,7 +25,7 @@ Examples:
   |   -20     |     25    |     5   |
   |  -100     |    -25    |   -125  |
 
-@wip
+@proposal
 Scenario: Input Table
   Given the following numbers:
     | number | 

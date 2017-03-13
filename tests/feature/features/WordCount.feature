@@ -4,7 +4,7 @@ Feature: Cucumber-cpp Text Input Example Exercise
   I want to implement cucumber steps with Text input
   In order to learn how to define cucumber steps in C++
 
-@wip
+@proposal
 Scenario: String Input
   Given the following text
     """
